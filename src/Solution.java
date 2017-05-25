@@ -15,20 +15,20 @@ public class Solution {
     }
 
     private static double calcInterpolationEndOfTable(double[][] table, double x, int n) {
-        double[][] divDif = new double[n + 1][n + 1];
+        double[][] divDif = new double[11][11];
         double result = 0;
         double tmp;
-        double t = (x - table[0][n]) / 0.1;
-        for (int i = 0; i < n + 1; i++) {
+        double t = (x - table[0][10]) / 0.1;
+        for (int i = 0; i < 11; i++) {
             divDif[0][i] = table[1][i];
         }
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 0; j < n - i + 1; j++) {
+        for (int i = 1; i < 11; i++) {
+            for (int j = 0; j < 11 - i; j++) {
                 divDif[i][j] = divDif[i - 1][j + 1] - divDif[i - 1][j];
             }
         }
         for (int i = 0; i < n + 1; i++) {
-            tmp = divDif[i][n - i];
+            tmp = divDif[i][10 - i];
             for (int j = 0; j < i; j++) {
                 tmp *= t + j;
             }
@@ -49,11 +49,6 @@ public class Solution {
         printArr(table[0]);
         System.out.print("Y: ");
         printArr(table[1]);
-        System.out.println("n = 3");
-        System.out.println("r*: " + Math.abs(calcInterpolationEndOfTable(table, 0.1 / 3, 3) - calcF(0.1 / 3)));
-        System.out.println("r**: " + Math.abs(calcInterpolationEndOfTable(table, 0.5 + 0.1 / 3, 3) - calcF(0.5 + 0.1 / 3)));
-        System.out.println("r***: " + Math.abs(calcInterpolationEndOfTable(table, 1 - 0.1 / 3, 3) - calcF(1 - 0.1 / 3)));
-        System.out.println("r****: " + Math.abs(calcInterpolationEndOfTable(table, 1, 3) - calcF(1 - 0.1 / 3)));
         System.out.println("n = 5");
         System.out.println("r*: " + Math.abs(calcInterpolationEndOfTable(table, 0.1 / 3, 5) - calcF(0.1 / 3)));
         System.out.println("r**: " + Math.abs(calcInterpolationEndOfTable(table, 0.5 + 0.1 / 3, 5) - calcF(0.5 + 0.1 / 3)));
